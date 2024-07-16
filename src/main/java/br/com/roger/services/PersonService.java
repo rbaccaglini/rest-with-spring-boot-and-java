@@ -28,7 +28,23 @@ public class PersonService {
     }
 
     public List<Person> getAll(){
+        logger.info("Finding all persons!");
         return mockPersonList();
+    }
+
+    public Person createPerson(Person person){
+        logger.info("Creating new person!");
+        person.setId(counter.incrementAndGet());
+        return person;
+    }
+
+    public Person updatePerson(Person person){
+        logger.info("Updating person!");
+        return person;
+    }
+
+    public void deletePerson(String id){
+        logger.info("Deleting person by ID!");
     }
 
     private List<Person> mockPersonList() {
