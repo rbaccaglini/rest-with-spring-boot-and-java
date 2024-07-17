@@ -19,7 +19,7 @@ public class PersonController {
             method = RequestMethod.GET,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Person getPersonById(@PathVariable(value = "id") String id) throws Exception{
+    public Person getPersonById(@PathVariable(value = "id") Long id) throws Exception{
         return service.getById(id);
     }
 
@@ -49,7 +49,7 @@ public class PersonController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable(value = "id") String id){
+    public void delete(@PathVariable(value = "id") Long id){
         service.deletePerson(id);
     }
 
