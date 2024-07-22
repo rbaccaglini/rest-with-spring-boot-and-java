@@ -1,5 +1,6 @@
 package br.com.roger.services;
 
+import br.com.roger.data.vo.v1.PersonVO;
 import br.com.roger.exceptios.ResourceNotFoundException;
 import br.com.roger.models.Person;
 import br.com.roger.repositories.PersonRepository;
@@ -19,26 +20,26 @@ public class PersonService {
     @Autowired
     PersonRepository repository;
 
-    public Person getById(Long id){
+    public PersonVO getById(Long id){
         logger.info("Finding person by ID!");
         return repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No record found for this id!"));
     }
 
-    public List<Person> getAll(){
+    public List<PersonVO> getAll(){
         logger.info("Finding all persons!");
         return repository.findAll();
     }
 
-    public Person createPerson(Person person){
+    public PersonVO createPerson(PersonVO person){
         logger.info("Creating new person!");
         return repository.save(person);
     }
 
-    public Person updatePerson(Person person){
+    public PersonVO updatePerson(PersonVO person){
         logger.info("Updating person!");
 
-        Person entity = repository.findById(person.getId())
+        PersonVO entity = repository.findById(person.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("No record found for this id!"));
 
         entity.setGender(entity.getGender());
@@ -52,7 +53,7 @@ public class PersonService {
     public void deletePerson(Long id){
         logger.info("Deleting person by id!");
 
-        Person person = repository.findById(id)
+        PersonVO person = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No record found for this id!"));
 
         repository.delete(person);
