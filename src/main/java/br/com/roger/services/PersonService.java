@@ -50,6 +50,8 @@ public class PersonService {
     }
 
     public void deletePerson(Long id){
+        logger.info("Deleting person by id!");
+
         Person person = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No record found for this id!"));
 
