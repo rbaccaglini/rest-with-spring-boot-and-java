@@ -1,6 +1,6 @@
 package br.com.roger.controllers;
 
-import br.com.roger.models.Person;
+import br.com.roger.data.vo.v1.PersonVO;
 import br.com.roger.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,12 +16,12 @@ public class PersonController {
     private PersonService service;
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person getPersonById(@PathVariable(value = "id") Long id) throws Exception{
+    public PersonVO getPersonById(@PathVariable(value = "id") Long id) throws Exception{
         return service.getById(id);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Person> getAll(){
+    public List<PersonVO> getAll(){
         return service.getAll();
     }
 
@@ -29,14 +29,14 @@ public class PersonController {
             produces = MediaType.APPLICATION_JSON_VALUE
     )
     @ResponseStatus(HttpStatus.CREATED)
-    public Person create(@RequestBody Person person){
+    public PersonVO create(@RequestBody PersonVO person){
         return service.createPerson(person);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public Person update(@RequestBody Person person){
+    public PersonVO update(@RequestBody PersonVO person){
         return service.updatePerson(person);
     }
 
