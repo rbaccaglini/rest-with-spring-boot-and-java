@@ -1,6 +1,7 @@
 package br.com.roger.controllers;
 
 import br.com.roger.data.vo.v1.PersonVO;
+import br.com.roger.data.vo.v2.PersonVOV2;
 import br.com.roger.services.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,6 +45,15 @@ public class PersonController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable(value = "id") Long id){
         service.deletePerson(id);
+    }
+
+    /** v2 **/
+    @PostMapping(value = "/v2", consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    @ResponseStatus(HttpStatus.CREATED)
+    public PersonVOV2 create(@RequestBody PersonVOV2 person){
+        return service.createPersonV2(person);
     }
 
 }

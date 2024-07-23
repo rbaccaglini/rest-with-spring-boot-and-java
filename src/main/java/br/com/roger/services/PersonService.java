@@ -1,6 +1,7 @@
 package br.com.roger.services;
 
 import br.com.roger.data.vo.v1.PersonVO;
+import br.com.roger.data.vo.v2.PersonVOV2;
 import br.com.roger.exceptios.ResourceNotFoundException;
 import br.com.roger.mapper.DozerMapper;
 import br.com.roger.models.Person;
@@ -58,5 +59,12 @@ public class PersonService {
         Person person = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No record found for this id!"));
         repository.delete(person);
+    }
+
+    /** v2 **/
+    public PersonVOV2 createPersonV2(PersonVOV2 person){
+        logger.info("Creating new person!");
+        Person entity = DozerMapper.parseObject(person, Person.class);
+        return DozerMapper.parseObject(repository.save(entity), PersonVOV2.class);
     }
 }
