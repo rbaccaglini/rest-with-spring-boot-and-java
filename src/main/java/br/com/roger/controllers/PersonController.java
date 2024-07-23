@@ -49,8 +49,7 @@ public class PersonController {
 
     /** v2 **/
     @PostMapping(value = "/v2", consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+            produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     public PersonVOV2 create(@RequestBody PersonVOV2 person){
         return service.createPersonV2(person);
