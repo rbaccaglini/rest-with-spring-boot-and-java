@@ -1,5 +1,6 @@
 package br.com.roger.services;
 
+import br.com.roger.controllers.PersonController;
 import br.com.roger.data.vo.v1.PersonVO;
 import br.com.roger.exceptios.ResourceNotFoundException;
 import br.com.roger.mapper.DozerMapper;
@@ -7,6 +8,9 @@ import br.com.roger.models.Person;
 import br.com.roger.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
@@ -20,11 +24,16 @@ public class PersonService {
     @Autowired
     PersonRepository repository;
 
-    public PersonVO getById(Long id){
+    public PersonVO getById(Long id) throws Exception {
         logger.info("Finding person by ID!");
         Person entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No record found for this id!"));
-        return DozerMapper.parseObject(entity, PersonVO.class);
+
+        PersonVO vo = DozerMapper.parseObject(entity, PersonVO.class);
+
+        vo.add(linkTo(methodOn(PersonController.class).getPersonById(id)).withSelfRel());
+
+        return vo;
     }
 
     public List<PersonVO> getAll(){
@@ -41,7 +50,7 @@ public class PersonService {
     public PersonVO updatePerson(PersonVO person){
         logger.info("Updating person!");
 
-        Person entity = repository.findById(person.getId())
+        Person entity = repository.findById(person.getKey())
                 .orElseThrow(() -> new ResourceNotFoundException("No record found for this id!"));
 
         entity.setGender(person.getGender());
