@@ -30,21 +30,35 @@ public class PersonService {
                 .orElseThrow(() -> new ResourceNotFoundException("No record found for this id!"));
 
         PersonVO vo = DozerMapper.parseObject(entity, PersonVO.class);
-
         vo.add(linkTo(methodOn(PersonController.class).getPersonById(id)).withSelfRel());
-
         return vo;
     }
 
     public List<PersonVO> getAll(){
         logger.info("Finding all persons!");
-        return DozerMapper.parseListObjects(repository.findAll(), PersonVO.class);
+        List<PersonVO> persons = DozerMapper.parseListObjects(repository.findAll(), PersonVO.class);
+        persons
+            .forEach(p -> {
+                try {
+                    p.add(linkTo(methodOn(PersonController.class).getPersonById(p.getKey())).withSelfRel());
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+        return  persons;
     }
 
     public PersonVO createPerson(PersonVO person){
         logger.info("Creating new person!");
         Person entity = DozerMapper.parseObject(person, Person.class);
-        return DozerMapper.parseObject(repository.save(entity), PersonVO.class);
+        PersonVO vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
+        try {
+            vo.add(linkTo(methodOn(PersonController.class).getPersonById(vo.getKey())).withSelfRel());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return vo;
     }
 
     public PersonVO updatePerson(PersonVO person){
@@ -58,7 +72,13 @@ public class PersonService {
         entity.setFirstName(person.getFirstName());
         entity.setLastName(person.getLastName());
 
-        return DozerMapper.parseObject(repository.save(entity), PersonVO.class);
+        PersonVO vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
+        try {
+            vo.add(linkTo(methodOn(PersonController.class).getPersonById(vo.getKey())).withSelfRel());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return vo;
     }
 
     public void deletePerson(Long id){

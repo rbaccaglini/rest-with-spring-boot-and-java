@@ -12,6 +12,7 @@ import java.util.Objects;
 public class PersonVO extends RepresentationModel<PersonVO> implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @JsonProperty("id")
     @Mapping("id")
     private Long key;
 
