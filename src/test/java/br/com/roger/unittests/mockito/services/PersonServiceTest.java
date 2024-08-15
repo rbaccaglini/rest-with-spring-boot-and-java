@@ -34,7 +34,7 @@ class PersonServiceTest {
     PersonRepository repository;
 
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
         input = new MockPerson();
         MockitoAnnotations.openMocks(this);
     }
