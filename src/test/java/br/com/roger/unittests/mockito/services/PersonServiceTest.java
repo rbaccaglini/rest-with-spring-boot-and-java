@@ -84,7 +84,8 @@ class PersonServiceTest {
         Person entity = input.mockEntity(1);
         entity.setId(1L);
 
-        Person persisted = entity;
+        Person persisted;
+        persisted = entity;
 
         PersonVO vo = input.mockVO(1);
         vo.setKey(1L);
@@ -108,7 +109,8 @@ class PersonServiceTest {
         Person entity = input.mockEntity(1);
         entity.setId(1L);
 
-        Person persisted = entity;
+        Person persisted;
+        persisted = entity;
 
         PersonVO vo = input.mockVO(1);
         vo.setKey(1L);
