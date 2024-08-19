@@ -4,7 +4,7 @@ import br.com.roger.controllers.PersonController;
 import br.com.roger.data.vo.v1.PersonVO;
 import br.com.roger.exceptios.RequireObjectIsNullException;
 import br.com.roger.exceptios.ResourceNotFoundException;
-import br.com.roger.mapper.DozerMapper;
+import br.com.roger.mapper.MyMapper;
 import br.com.roger.models.Person;
 import br.com.roger.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +29,14 @@ public class PersonService {
         Person entity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No record found for this id!"));
 
-        PersonVO vo = DozerMapper.parseObject(entity, PersonVO.class);
+        PersonVO vo = MyMapper.parseObject(entity, PersonVO.class);
         vo.add(linkTo(methodOn(PersonController.class).getPersonById(id)).withSelfRel());
         return vo;
     }
 
     public List<PersonVO> getAll(){
         logger.info("Finding all persons!");
-        List<PersonVO> persons = DozerMapper.parseListObjects(repository.findAll(), PersonVO.class);
+        List<PersonVO> persons = MyMapper.parseListObjects(repository.findAll(), PersonVO.class);
         persons
             .forEach(p -> {
                 try {
@@ -54,8 +54,8 @@ public class PersonService {
         if (person == null) throw new RequireObjectIsNullException();
 
         logger.info("Creating new person!");
-        Person entity = DozerMapper.parseObject(person, Person.class);
-        PersonVO vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
+        Person entity = MyMapper.parseObject(person, Person.class);
+        PersonVO vo = MyMapper.parseObject(repository.save(entity), PersonVO.class);
         try {
             vo.add(linkTo(methodOn(PersonController.class).getPersonById(vo.getKey())).withSelfRel());
         } catch (Exception e) {
@@ -77,7 +77,7 @@ public class PersonService {
         entity.setFirstName(person.getFirstName());
         entity.setLastName(person.getLastName());
 
-        PersonVO vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
+        PersonVO vo = MyMapper.parseObject(repository.save(entity), PersonVO.class);
         try {
             vo.add(linkTo(methodOn(PersonController.class).getPersonById(vo.getKey())).withSelfRel());
         } catch (Exception e) {
