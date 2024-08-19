@@ -2,6 +2,7 @@ package br.com.roger.services;
 
 import br.com.roger.controllers.PersonController;
 import br.com.roger.data.vo.v1.PersonVO;
+import br.com.roger.exceptios.RequireObjectIsNullException;
 import br.com.roger.exceptios.ResourceNotFoundException;
 import br.com.roger.mapper.DozerMapper;
 import br.com.roger.models.Person;
@@ -49,6 +50,9 @@ public class PersonService {
     }
 
     public PersonVO createPerson(PersonVO person){
+
+        if (person == null) throw new RequireObjectIsNullException();
+
         logger.info("Creating new person!");
         Person entity = DozerMapper.parseObject(person, Person.class);
         PersonVO vo = DozerMapper.parseObject(repository.save(entity), PersonVO.class);
@@ -62,6 +66,8 @@ public class PersonService {
 
     public PersonVO updatePerson(PersonVO person){
         logger.info("Updating person!");
+
+        if (person == null) throw new RequireObjectIsNullException();
 
         Person entity = repository.findById(person.getKey())
                 .orElseThrow(() -> new ResourceNotFoundException("No record found for this id!"));

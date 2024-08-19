@@ -17,9 +17,9 @@ public class MockPerson {
         return mockVO(0);
     }
 
-    public List<Person> mockEntityList() {
+    public List<Person> mockEntityList(int qtd) {
         List<Person> persons = new ArrayList<Person>();
-        for (int i = 0; i < 14; i++) {
+        for (int i = 0; i < qtd; i++) {
             persons.add(mockEntity(i));
         }
         return persons;

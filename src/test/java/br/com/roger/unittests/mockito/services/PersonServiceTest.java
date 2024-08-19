@@ -1,6 +1,7 @@
 package br.com.roger.unittests.mockito.services;
 
 import br.com.roger.data.vo.v1.PersonVO;
+import br.com.roger.exceptios.RequireObjectIsNullException;
 import br.com.roger.models.Person;
 import br.com.roger.repositories.PersonRepository;
 import br.com.roger.services.PersonService;
@@ -60,13 +61,14 @@ class PersonServiceTest {
 
     @Test
     void getAll() {
-        List<Person> list = input.mockEntityList();
+        int qtd = 5;
+        List<Person> list = input.mockEntityList(qtd);
         when(repository.findAll()).thenReturn(list);
 
         List<PersonVO> people = service.getAll();
 
         assertNotNull(people);
-        assertEquals(people.size(), 14);
+        assertEquals(people.size(), qtd);
 
         PersonVO person = people.get(1);
         assertNotNull(person.getKey());
@@ -82,10 +84,10 @@ class PersonServiceTest {
     @Test
     void createPerson() {
         Person entity = input.mockEntity(1);
-        entity.setId(1L);
 
         Person persisted;
         persisted = entity;
+        persisted.setId(1L);
 
         PersonVO vo = input.mockVO(1);
         vo.setKey(1L);
@@ -102,6 +104,20 @@ class PersonServiceTest {
         assertEquals(result.getFirstName(), "First Name Test1");
         assertEquals(result.getLastName(), "Last Name Test1");
         assertEquals(result.getGender(), "Female");
+    }
+
+    @Test
+    void createPersonWithNullPerson() {
+        Exception ex = assertThrows(RequireObjectIsNullException.class,
+            () -> {
+                service.createPerson(null);
+            }
+        );
+
+        String expected = "It is not allowed to persist a null objects!";
+
+        assertEquals(ex.getMessage(), expected);
+
     }
 
     @Test
@@ -128,6 +144,19 @@ class PersonServiceTest {
         assertEquals(result.getFirstName(), "First Name Test1");
         assertEquals(result.getLastName(), "Last Name Test1");
         assertEquals(result.getGender(), "Female");
+    }
+
+    @Test
+    void updatedPersonWithNullPerson() {
+        Exception ex = assertThrows(RequireObjectIsNullException.class,
+                () -> {
+                    service.updatePerson(null);
+                }
+        );
+
+        String expected = "It is not allowed to persist a null objects!";
+
+        assertEquals(ex.getMessage(), expected);
     }
 
     @Test
