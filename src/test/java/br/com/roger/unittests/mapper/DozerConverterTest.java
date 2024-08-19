@@ -33,7 +33,7 @@ public class DozerConverterTest {
     @Test
     public void parseEntityListToVOListTest() {
         List<PersonVO> outputList = DozerMapper.parseListObjects(inputObject.mockEntityList(14), PersonVO.class);
-        PersonVO outputZero = outputList.get(0);
+        PersonVO outputZero = outputList.getFirst();
 
         assertEquals(Long.valueOf(0L), outputZero.getKey());
         assertEquals("First Name Test0", outputZero.getFirstName());
@@ -71,7 +71,7 @@ public class DozerConverterTest {
     @Test
     public void parserVOListToEntityListTest() {
         List<Person> outputList = DozerMapper.parseListObjects(inputObject.mockVOList(), Person.class);
-        Person outputZero = outputList.get(0);
+        Person outputZero = outputList.getFirst();
 
         assertEquals(Long.valueOf(0L), outputZero.getId());
         assertEquals("First Name Test0", outputZero.getFirstName());

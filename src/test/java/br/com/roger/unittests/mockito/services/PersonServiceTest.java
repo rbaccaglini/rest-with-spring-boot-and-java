@@ -109,9 +109,7 @@ class PersonServiceTest {
     @Test
     void createPersonWithNullPerson() {
         Exception ex = assertThrows(RequireObjectIsNullException.class,
-            () -> {
-                service.createPerson(null);
-            }
+            () -> service.createPerson(null)
         );
 
         String expected = "It is not allowed to persist a null objects!";
@@ -149,9 +147,7 @@ class PersonServiceTest {
     @Test
     void updatedPersonWithNullPerson() {
         Exception ex = assertThrows(RequireObjectIsNullException.class,
-                () -> {
-                    service.updatePerson(null);
-                }
+                () -> service.updatePerson(null)
         );
 
         String expected = "It is not allowed to persist a null objects!";
