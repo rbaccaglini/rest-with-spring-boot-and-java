@@ -19,6 +19,10 @@ import java.util.List;
 @RequestMapping("/api/person/v1")
 @Tag(name = "People", description = "Endpoints for managing People Information")
 public class PersonController {
+
+    @Autowired
+    private PersonService service;
+
     @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML})
     @Operation(
             summary = "Finds a person",
@@ -40,9 +44,6 @@ public class PersonController {
     public PersonVO getPersonById(@PathVariable(value = "id") Long id) throws Exception{
         return service.getById(id);
     }
-
-    @Autowired
-    private PersonService service;
 
     @GetMapping(produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML})
     @Operation(
