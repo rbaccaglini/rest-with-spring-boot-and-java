@@ -13,22 +13,22 @@ import java.util.Objects;
 public class BookVO extends RepresentationModel<BookVO> implements Serializable {
 
     @JsonProperty("id")
-    private Integer key;
+    private Long key;
 
     private String author;
 
     @JsonProperty("launch_date")
     private Date launchDate;
 
-    private BigDecimal price;
+    private Double price;
 
     private String title;
 
-    public Integer getKey() {
+    public Long getKey() {
         return key;
     }
 
-    public void setKey(Integer key) {
+    public void setKey(Long key) {
         this.key = key;
     }
 
@@ -48,11 +48,11 @@ public class BookVO extends RepresentationModel<BookVO> implements Serializable 
         this.launchDate = launchDate;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

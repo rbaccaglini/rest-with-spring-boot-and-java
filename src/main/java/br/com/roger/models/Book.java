@@ -15,17 +15,17 @@ public class Book implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Lob
+    @Column(nullable = false, length = 200)
     private String author;
 
     @Column(name="launch_date", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.DATE)
     private Date launchDate;
 
     @Column(nullable = false, precision = 65, scale = 2)
-    private BigDecimal price ;
+    private Double price ;
 
-    @Lob
+    @Column(nullable = false, length = 250)
     private String title;
 
     public Integer getId() {
@@ -52,11 +52,11 @@ public class Book implements Serializable {
         this.launchDate = launchDate;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
