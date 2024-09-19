@@ -50,7 +50,7 @@ public class BookController {
         return service.getById(id);
     }
 
-    @GetMapping(value = "/{title}",
+    @GetMapping(value = "/title/{title}",
             produces = {
                     MediaType.APPLICATION_JSON,
                     MediaType.APPLICATION_XML,
@@ -115,13 +115,15 @@ public class BookController {
     }
 
     @DeleteMapping(
+            value = "/{id}",
             produces = {
                     MediaType.APPLICATION_JSON,
                     MediaType.APPLICATION_XML,
                     MediaType.APPLICATION_YAML
             }
     )
-    public void updateBook(Long id) {
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteBook(@PathVariable(value = "id") Long id) {
         service.deleteBook(id);
     }
 }
