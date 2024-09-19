@@ -1,7 +1,6 @@
 package br.com.roger.controllers;
 
 import br.com.roger.data.vo.v1.BookVO;
-import br.com.roger.data.vo.v1.PersonVO;
 import br.com.roger.services.BookService;
 import br.com.roger.util.MediaType;
 import io.swagger.v3.oas.annotations.Operation;

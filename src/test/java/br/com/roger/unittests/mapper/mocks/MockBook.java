@@ -1,7 +1,6 @@
 package br.com.roger.unittests.mapper.mocks;
 
 import br.com.roger.data.vo.v1.BookVO;
-import br.com.roger.mapper.MyMapper;
 import br.com.roger.models.Book;
 
 import java.util.ArrayList;
