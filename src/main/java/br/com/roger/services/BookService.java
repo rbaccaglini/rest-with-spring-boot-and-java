@@ -65,6 +65,8 @@ public class BookService {
     public BookVO updateBook(BookVO newBook) {
         logger.info("Updating book!");
 
+        if (newBook == null) throw new RequireObjectIsNullException();
+
         Book entity = repository.findById(newBook.getKey())
                 .orElseThrow(() -> new ResourceNotFoundException("No record found for this id!"));
 
