@@ -46,7 +46,7 @@ class BookServiceTest {
     void getById() throws Exception {
         Date date = new Date(1716449400);
 
-        Book entity = input.mockEntity(1);
+        Book entity = input.mockEntity();
         entity.setId(1L);
 
         when(repository.findById(1L)).thenReturn(Optional.of(entity));
@@ -57,9 +57,9 @@ class BookServiceTest {
         assertNotNull(result.getLinks());
 
         assertTrue(result.toString().contains("links: [</api/book/v1/1>;rel=\"self\"]"));
-        assertEquals(result.getAuthor(), "Author 1");
-        assertEquals(result.getPrice(), 11.1);
-        assertEquals(result.getTitle(), "Title 1");
+        assertEquals(result.getAuthor(), "Author 0");
+        assertEquals(result.getPrice(), 10.1);
+        assertEquals(result.getTitle(), "Title 0");
         assertEquals(result.getLaunchDate(), date);
     }
 
