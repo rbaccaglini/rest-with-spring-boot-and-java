@@ -18,7 +18,6 @@ import java.util.logging.Logger;
 
 @Service
 public class PersonService {
-    //private static final AtomicLong counter = new AtomicLong();
     private final Logger logger = Logger.getLogger(PersonService.class.getName());
 
     @Autowired
