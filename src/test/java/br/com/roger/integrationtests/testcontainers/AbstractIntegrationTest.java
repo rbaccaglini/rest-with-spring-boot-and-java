@@ -22,7 +22,7 @@ public class AbstractIntegrationTest  {
         static MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.0.29");
 
         private static void startContainers() throws ExecutionException, InterruptedException, TimeoutException {
-            Startables.deepStart(Stream.of(mysql)).get(60, TimeUnit.SECONDS);
+            Startables.deepStart(Stream.of(mysql)).get(30, TimeUnit.SECONDS);
         }
 
         private static Map<String, String> createConnectionConfiguration() {
