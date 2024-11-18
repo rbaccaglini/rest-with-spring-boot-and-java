@@ -23,6 +23,7 @@ public class PersonController {
     @Autowired
     private PersonService service;
 
+//    @CrossOrigin(origins = "http://localhost:8080") // can be done by endpoint
     @GetMapping(value = "/{id}", produces = {MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML, MediaType.APPLICATION_YAML})
     @Operation(
             summary = "Finds a person",
