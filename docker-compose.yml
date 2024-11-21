@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: admin # mesma senha que está no seu application.yml
+      MYSQL_DATABASE: rest_with_spring
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - springboot-network
+
+volumes:
+  mysql_data:
+    driver: local
+
+networks:
+  springboot-network:
+    driver: bridge
